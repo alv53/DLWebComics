@@ -1,13 +1,11 @@
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
 from scrapy.selector import Selector
-from xkcd_scraper.items import XkcdComicItem
+from DLWebComics.items import XkcdComicItem
 from urlparse import urljoin
 
-import os
-
 class XkcdComicSpider(CrawlSpider):
-    name = 'xkcd-comics'
+    name = 'xkcd'
     start_id = 1
     start_urls = ['http://xkcd.com/' + str(start_id)]
 

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Scrapy settings for xkcd_scraper project
+# Scrapy settings for DLWebComics project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -9,14 +9,14 @@
 #     http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #     http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'xkcd_scraper'
+BOT_NAME = 'DLWebComics'
 
-SPIDER_MODULES = ['xkcd_scraper.spiders']
-NEWSPIDER_MODULE = 'xkcd_scraper.spiders'
+SPIDER_MODULES = ['DLWebComics.spiders']
+NEWSPIDER_MODULE = 'DLWebComics.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'xkcd_scraper (+http://www.yourdomain.com)'
+#USER_AGENT = 'DLWebComics (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -47,13 +47,13 @@ ROBOTSTXT_OBEY = True
 # Enable or disable spider middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'xkcd_scraper.middlewares.MyCustomSpiderMiddleware': 543,
+#    'DLWebComics.middlewares.MyCustomSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    'xkcd_scraper.middlewares.MyCustomDownloaderMiddleware': 543,
+#    'DLWebComics.middlewares.MyCustomDownloaderMiddleware': 543,
 #}
 
 # Enable or disable extensions
@@ -65,7 +65,7 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'xkcd_scraper.pipelines.XkcdImagesPipeline': 1,
+   'DLWebComics.pipelines.XkcdImagesPipeline': 1,
 }
 
 IMAGES_STORE = 'images/'
