@@ -8,6 +8,7 @@
 from scrapy.item import Item, Field
 
 class XkcdComicItem(Item):
-    image_url = Field()
+    image_urls = Field()
+    image_names = Field()
     alt_text = Field()
     transcript = Field()
