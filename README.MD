@@ -1,3 +1,9 @@
-# DLWebComics
+### DLWebComics
 
-XKCD web scraper was taken from this scrapy tutorial: http://www.python-forum.org/viewtopic.php?f=25&t=1626
+Scrapy based python web scraper for downloading images from webcomics to be read offline.
+
+### Supported comics
+1. xkcd
+
+### To run
+```scrapy crawl [comic-name]```
