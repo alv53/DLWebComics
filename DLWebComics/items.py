@@ -13,3 +13,4 @@ class WebComicItem(Item):
     title = Field()
     alt_text = Field()
     transcript = Field()
+    ext = Field()
