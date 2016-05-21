@@ -8,8 +8,8 @@
 from scrapy.item import Item, Field
 
 class WebComicItem(Item):
-    image_urls = Field()
-    image_nums= Field()
+    image_url = Field()
+    image_num= Field()
     title = Field()
     alt_text = Field()
     transcript = Field()

@@ -22,16 +22,17 @@ class XkcdComicSpider(CrawlSpider):
         if len(image.xpath('@src').extract()) == 0:
             image = sel.xpath('//div[@id="comic"]/a/img')
         src = image.xpath('@src').extract()
-        if len(src) > 0:
+        title = sel.xpath('//div[@id="ctitle"]/text()').extract()
+        alt_text = image.xpath('@title').extract()
+        if len(src) > 0 and len(title) > 0 and len(alt_text) > 0:
             item = WebComicItem()
-            url = src[0]
             # Set attributes
-            item['image_urls'] = [urljoin("http://", url)]
-            item['image_nums'] = str(self.start_id)
-            item['title'] = sel.xpath('//div[@id="ctitle"]/text()').extract()[0]
-            item['alt_text'] = image.xpath('@title').extract()[0]
+            item['image_url'] = urljoin("http://", src[0])
+            item['image_num'] = str(self.start_id)
+            item['title'] = title[0]
+            item['alt_text'] = alt_text[0]
             item['transcript'] = sel.xpath('//div[@id="transcript"]/text()').extract()[0]
-            item['ext'] = url.split('.')[-1]
+            item['ext'] = src[0].split('.')[-1]
             self.start_id += 1
             return item
         else:
@@ -53,15 +54,14 @@ class SmbcComicSpider(CrawlSpider):
         src = image.xpath('@src').extract()
         if len(src) > 0:
             item = WebComicItem()
-            url = src[0]
             num = response.url.split('=')[1]
             # Set attributes
-            item['image_urls'] = [urljoin("http://www.smbc-comics.com", url)]
-            item['image_nums'] = str(num)
+            item['image_url'] = urljoin("http://www.smbc-comics.com", src[0])
+            item['image_num'] = str(num)
             item['title'] = ""
             item['alt_text'] = ""
             item['transcript'] = ""
-            item['ext'] = url.split('.')[-1]
+            item['ext'] = src[0].split('.')[-1]
             return item
         else:
             return []
@@ -81,14 +81,13 @@ class LicdComicSpider(CrawlSpider):
         src = image.xpath('@src').extract()
         if len(src) > 0:
             item = WebComicItem()
-            url = src[0]
             # Set attributes
-            item['image_urls'] = [url]
-            item['image_nums'] = image.xpath('@title').extract()[0]
+            item['image_url'] = src[0]
+            item['image_num'] = image.xpath('@title').extract()[0]
             item['title'] = ""
             item['alt_text'] = ""
             item['transcript'] = ""
-            item['ext'] = url.split('.')[-1]
+            item['ext'] = src[0].split('.')[-1]
             return item
         else:
             return []

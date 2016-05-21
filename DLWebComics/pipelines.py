@@ -34,15 +34,14 @@ class WebComicImagesPipeline(ImagesPipeline):
             yield key, image, buf
 
     def get_media_requests(self, item, info):
-        return [Request(x, meta={'image_nums': item["image_nums"],
+        return Request(item['image_url'], meta={'image_num': item["image_num"],
                                  'title': item["title"],
                                  'alt_text': item["alt_text"],
                                  'ext': item["ext"]})
-                for x in item.get('image_urls', [])]
 
     def change_filename(self, key, response):
         # sanitize file name
-        cleanNum = sanitizeFileName(response.meta['image_nums'])
+        cleanNum = sanitizeFileName(response.meta['image_num'])
         cleanTitle = sanitizeFileName(response.meta['title'])
         cleanAltText = sanitizeFileName(response.meta['alt_text'])
 
