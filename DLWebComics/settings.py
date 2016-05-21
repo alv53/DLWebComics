@@ -65,7 +65,7 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'DLWebComics.pipelines.XkcdImagesPipeline': 1,
+   'DLWebComics.pipelines.WebComicImagesPipeline': 1,
 }
 
 IMAGES_STORE = 'images/'

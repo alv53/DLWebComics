@@ -7,8 +7,9 @@
 
 from scrapy.item import Item, Field
 
-class XkcdComicItem(Item):
+class WebComicItem(Item):
     image_urls = Field()
-    image_names = Field()
+    image_nums= Field()
+    title = Field()
     alt_text = Field()
     transcript = Field()

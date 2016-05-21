@@ -9,17 +9,23 @@ import re
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
-class XkcdImagesPipeline(ImagesPipeline):
-    CONVERTED_ORIGINAL = re.compile('^full/[0-9,a-f]+.jpg$')
+def sanitizeFileName(raw):
+    # This is what I get for including alt text in the title
+    return "".join(x for x in raw if x.isalnum()
+                                     or x == ' '
+                                     or x == '('
+                                     or x == ')')
 
-    def get_media_requests(self, item, info):
-        print "get_media_requests"
-        return [Request(x, meta={'image_names': item["image_names"]})
-                for x in item.get('image_urls', [])]
+class WebComicImagesPipeline(ImagesPipeline):
+    CONVERTED_ORIGINAL = re.compile('^full/[0-9,a-f]+.jpg$')
+    spider = None
+
+    def process_item(self, item, spider):
+        self.spider = spider
+        return ImagesPipeline.process_item(self, item, spider)
 
     def get_images(self, response, request, info):
-        print "get_images"
-        for key, image, buf, in super(XkcdImagesPipeline,
+        for key, image, buf, in super(WebComicImagesPipeline,
                                       self).get_images(response,
                                                        request,
                                                        info):
@@ -27,6 +33,24 @@ class XkcdImagesPipeline(ImagesPipeline):
                 key = self.change_filename(key, response)
             yield key, image, buf
 
-    def change_filename(self, key, response):
-        return "full/%s.jpg" % response.meta['image_names'][0]
+    def get_media_requests(self, item, info):
+        return [Request(x, meta={'image_nums': item["image_nums"],
+                                 'title': item["title"],
+                                 'alt_text': item["alt_text"]})
+                for x in item.get('image_urls', [])]
 
+    def change_filename(self, key, response):
+        # sanitize file name
+        cleanNum = sanitizeFileName(response.meta['image_nums'][0])
+        cleanTitle = sanitizeFileName(response.meta['title'][0])
+        cleanAltText = sanitizeFileName(response.meta['alt_text'][0])
+
+        name = self.spider.name + '/' + ""
+        if cleanNum != "":
+            name += cleanNum
+        if cleanTitle != "":
+            name += " - " + cleanTitle
+        if cleanAltText != "":
+            name += " - " + cleanAltText
+        name += ".jpg"
+        return name
