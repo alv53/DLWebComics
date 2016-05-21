@@ -81,9 +81,10 @@ class LicdComicSpider(CrawlSpider):
         src = image.xpath('@src').extract()
         if len(src) > 0:
             item = WebComicItem()
+            num = response.url.split('/')[-2]
             # Set attributes
             item['image_url'] = src[0]
-            item['image_num'] = image.xpath('@title').extract()[0]
+            item['image_num'] = str(num)
             item['title'] = ""
             item['alt_text'] = ""
             item['transcript'] = ""
