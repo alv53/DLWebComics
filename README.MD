@@ -4,6 +4,7 @@ Scrapy based python web scraper for downloading images from webcomics to be read
 
 ### Supported comics
 1. xkcd
+2. smbc
 
 ### To run
 ```scrapy crawl [comic-name]```
